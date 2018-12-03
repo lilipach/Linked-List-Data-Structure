@@ -1,7 +1,8 @@
 /*
 Author: Liliana Pacheco
 Name: LinkedList.cpp
-Purpose: to create a fully functioning Linked List using Nodes. It is also a templated class Linked List to allow use with different DataTypes
+Purpose: to create a fully functioning Linked List using Nodes. It is also a templated class Linked List to allow use with 
+	 different DataTypes
 */
 #include "LinkedList.h"
 #include <iostream>
@@ -11,7 +12,8 @@ using namespace std;
 /*
 Name: ListNode
 input: a Node data type and a List Node pointer
-Purpose: This is the ListNode constructor, its purpose is to create a new node with the given DataType value and to set the next pointer of the node to the given ListNode Pointer
+Purpose: This is the ListNode constructor, its purpose is to create a new node with the given DataType value and to set 
+  	 the next pointer of the node to the given ListNode Pointer
 */
 template <class DataType>
 List<DataType>::ListNode::ListNode (const DataType& nodeData, ListNode* nextPtr)
@@ -60,46 +62,49 @@ List<DataType>& List<DataType>::operator=(const List& other)
 {
 	if(this == &other)
 	{
-		return; // if calling object is other object then nothing needs to be done important because we would delete the data of the object other wise
+		return; // if calling object is other object then nothing needs to be done important because we would delete 
+			// the data of the object other wise
 	}
 
-	clear(); //delete pre-existing data of calling object
+	clear();	       //delete pre-existing data of calling object
 	other.gotoBeginning(); //place  the "other" cursor at the start of the list (just in case)
 
 	while(other.cursor != NULL)
 	{
 		insert(cursor -> dataItem);  //insert will create a node in the list with the appropriate data
-		other.gotoNext(); //move cursor to the next node
+		other.gotoNext(); 	     //move cursor to the next node
 	}
 }
 
 /*
 Name: ~List
 Input: None
-Purpose: This is the List destructor and it takes care of deallocating the memory of the nodes of the list when the object is destroyed
+Purpose: This is the List destructor and it takes care of deallocating the memory of the nodes of the list when the object 
+	 is destroyed
 */
 template <class DataType>
 List<DataType>::~List()
 {
-	clear();//just use clear cause im lazzy it will take care of memory deallocation which is the important part
+	clear();	//just use clear cause im lazzy it will take care of memory deallocation which is the important part
 }
 
 /*
 Name: insert
 Input: A constant data type or new value that is used to create a new node for the Linked List
-Purpose: This function creates a new node and inserts it at the end of the list if there are no items in the list then the new item becomes the head of the list
+Purpose: This function creates a new node and inserts it at the end of the list if there are no items in the list then the new 
+	 item becomes the head of the list
 */
 template <class DataType>
 void List<DataType>::insert(const DataType& newDataItem) throw (logic_error)
 {
-	ListNode *new_node_ptr = new ListNode(newDataItem, 0); //make new node object
+	ListNode *new_node_ptr = new ListNode(newDataItem, 0); 	//make new node object
 
-	if(isEmpty()) // if the list is empty then make the newly created node the head and set the cursor
+	if(isEmpty()) 	// if the list is empty then make the newly created node the head and set the cursor
 	{
 		head = new_node_ptr;
 		cursor = head;
 	}
-	else if ((cursor -> next) == NULL)        // if the list is not empty then we must link the newly created node to the existing list
+	else if ((cursor -> next) == NULL)    // if the list is not empty then we must link the newly created node to the existing list
 	{
 		cursor -> next = new_node_ptr; 
 		cursor = new_node_ptr; //set cursor to the new node
@@ -141,11 +146,12 @@ void List<DataType>::remove() throw (logic_error)
 	else if (cursor -> next == NULL) //in case the node to be removed is the last item on the list
 	{	
 		ListNode *temp_node_ptr = cursor; //save the address of the node that is to be deleted
-		gotoPrior(); 							 //move curser to prior node and set that item to null (now the last item of the list)
+		gotoPrior(); 		 	  //move curser to prior node and set that item to null (now the last item of the list)
 		cursor -> next = NULL;
-		delete temp_node_ptr;  				//finaly delete the remove/delete the node
+		delete temp_node_ptr;  		  //finaly delete the remove/delete the node
 
-		gotoBeginning(); // because the item deleted is the last item of the list the curser is set to the first item of the list
+		gotoBeginning(); 		  //because the item deleted is the last item of the list the curser 
+						  //is set to the first item of the list
 	}
 	else if (!isEmpty()) //last possible case is that the item to be removed is somewhere in the middle of the list
 	{
